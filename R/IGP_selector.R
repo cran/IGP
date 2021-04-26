@@ -25,10 +25,20 @@ IGP <- function(X=NULL, Z=NULL, package=NULL, ...) {#browser()
     u <- IGP_mlegp$new(X=X, Z=Z, ...)
   } else if (package %in% c("GauPro", "gaupro")) {
     u <- IGP_GauPro$new(X=X, Z=Z, ...)
+  } else if (package %in% c("GauPro_kernel", "gaupro_kernel")) {
+    u <- IGP_GauPro_kernel$new(X=X, Z=Z, ...)
+  } else if (tolower(package) %in% c("gaupro_kernel_matern52")) {
+    u <- IGP_GauPro_kernel$new(X=X, Z=Z, kernel=GauPro::Matern52, ...)
+  } else if (tolower(package) %in% c("gaupro_kernel_matern32")) {
+    u <- IGP_GauPro_kernel$new(X=X, Z=Z, kernel=GauPro::Matern32, ...)
   } else if (package %in% c("laGP_GauPro", "lagp_gaupro", "laGP_gaupro", "lagp_GauPro")) {
     u <- IGP_laGP_GauPro$new(X=X, Z=Z, ...)
+  } else if (tolower(package) %in% c("lagp_gaupro_kernel")) {
+    u <- IGP_laGP_GauPro_kernel$new(X=X, Z=Z, ...)
   } else if (package %in% c("DiceKriging", "dicekriging", "dice", "Dice", "DK", "dk")) {
     u <- IGP_DiceKriging$new(X=X, Z=Z, ...)
+  } else if (tolower(package) %in% c("cgp")) {
+    u <- IGP_CGP$new(X=X, Z=Z, ...)
   } else if (package  %in% c( "sklearn", "scikit-learn", "scikitlearn")) {
     u <- IGP_sklearn$new(X=X, Z=Z, ...)
   } else if (package  %in% c( "GPy", "gpy")) {
@@ -39,6 +49,12 @@ IGP <- function(X=NULL, Z=NULL, package=NULL, ...) {#browser()
   } else if (package  %in% c( "GPML", "gpml")) {
     # u <- IGP_GPML$new(X=X, Z=Z, ...)
     stop("GPML is currently not available")
+  } else if (package  %in% c( "LOOEC-laGP_GauPro-laGP")) {
+    u <- IGP_LOOEC_laGP_GauPro$new(X=X, Z=Z, package2='laGP', ...)
+  } else if (package  %in% c( "LOOEC-laGP_GauPro-GauPro")) {
+    u <- IGP_LOOEC_laGP_GauPro$new(X=X, Z=Z, package2='GauPro', ...)
+  } else if (tolower(package)  %in% c( "looec-gaupro_kernel")) {
+    u <- IGP_LOOEC_GauPro_kernel$new(X=X, Z=Z, package2='GauPro', ...)
   } else {
     stop("Package not recognized")
   }
